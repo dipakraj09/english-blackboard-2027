@@ -21,7 +21,7 @@ select option{background:#222}
 .o{padding:2px 8px;border-radius:6px;display:block;width:100%;text-align:left;border:0;background:none}
 .o.ok{color:var(--g);background:#8fe3a022}
 .o.no{color:var(--r);background:#ff8f8f22;text-decoration:line-through}
-.ans{display:block;padding:2px 8px;color:var(--g)}input[type=checkbox]{width:1.1em;height:1.1em;padding:0;margin:0 6px 0 0;accent-color:#8fe3a0;vertical-align:middle;border:0;background:none}label.o{display:block;cursor:pointer}.ex{color:var(--b);margin:2px 0 4px}.sc{position:fixed;right:10px;bottom:14px;display:flex;flex-direction:column;gap:6px;z-index:5}.sc button{background:#1d2b25;font-size:1.2em;touch-action:none;user-select:none}.st{float:right;border:0;background:none;font-size:1.2em;padding:0}
+.ans{display:block;padding:2px 8px;color:var(--g)}input[type=checkbox]{width:1.1em;height:1.1em;padding:0;margin:0 6px 0 0;accent-color:#8fe3a0;vertical-align:middle;border:0;background:none}label.o{display:block;cursor:pointer}.ex{color:var(--b);margin:2px 0 4px}.by{text-align:right;margin-bottom:4px;font-size:.8em;color:var(--y);opacity:.5}.sc{position:fixed;right:10px;bottom:14px;display:flex;flex-direction:column;gap:6px;z-index:5}.sc button{background:#1d2b25;font-size:1.2em;user-select:none;-webkit-user-select:none;touch-action:manipulation}.st{float:right;border:0;background:none;font-size:1.2em;padding:0}
 .hid .o.ok{color:inherit;background:none}
 .stat{display:flex;justify-content:space-between;color:var(--b);margin-bottom:6px}
 .big{text-align:center;font-size:2em;color:var(--y)}
@@ -30,7 +30,7 @@ select option{background:#222}
 .tray{height:10px;background:#8a5a2e;border-radius:4px;margin-top:10px}
 @media(max-width:560px){:root{--fs:17px}.board{border-width:6px;margin:0}}
 </style></head><body>
-<div class="board"><h1>✎ 12th English – Sent-Up 2027</h1>
+<div class="board"><div class="by">Created by Dipak</div><h1>✎ 12th English – Sent-Up 2027</h1>
 <nav id="nav"></nav><div id="app"></div><div class="sc"><button id="up" title="ऊपर">↑</button><button id="dn" title="नीचे">↓</button></div><div class="tray"></div>
 <p class="hint">Quiz में: A/B/C/D या 1–4 दबाएँ, Enter = अगला</p></div>
 <script>
@@ -346,10 +346,9 @@ app.innerHTML=`<h3 style="color:var(--y)">⭐ Star वाले (${a.length})</h
 function render(){nav();({study,quiz:()=>quiz&&!quiz.done?ask():quiz?next():setup(),match,rev})[st.tab]()}
 let dir=0,raf;
 function stopAS(){dir=0;cancelAnimationFrame(raf);up.classList.remove("on");dn.classList.remove("on")}
-function goAS(d){stopAS();dir=d;(d<0?up:dn).classList.add("on");const step=()=>{if(!dir)return;const y=scrollY;scrollBy(0,dir*32);if(scrollY==y){stopAS();return}raf=requestAnimationFrame(step)};raf=requestAnimationFrame(step)}
-function bindScrollHold(btn,d){btn.addEventListener("pointerdown",e=>{e.preventDefault();btn.setPointerCapture(e.pointerId);goAS(d)});["pointerup","pointercancel","lostpointercapture"].forEach(ev=>btn.addEventListener(ev,stopAS));btn.onclick=e=>{if(e.detail===0)scrollBy({top:d*500,behavior:"smooth"})}}
-bindScrollHold(up,-1);bindScrollHold(dn,1);
-document.addEventListener("pointerdown",e=>{if(!e.target.closest(".sc"))stopAS()},true);
-["wheel","keydown"].forEach(ev=>addEventListener(ev,e=>{if(!(e.target.closest&&e.target.closest(".sc")))stopAS()},{passive:true}));
+function goAS(d){if(dir==d){stopAS();return}stopAS();dir=d;(d<0?up:dn).classList.add("on");const step=()=>{if(!dir)return;const y=scrollY;scrollBy(0,dir*14);if(scrollY==y){stopAS();return}raf=requestAnimationFrame(step)};raf=requestAnimationFrame(step)}
+function lp(b,d){let t,f=false;b.addEventListener("pointerdown",()=>{f=false;t=setTimeout(()=>{f=true;stopAS();scrollTo({top:d<0?0:document.documentElement.scrollHeight})},500)});["pointerup","pointerleave","pointercancel"].forEach(v=>b.addEventListener(v,()=>clearTimeout(t)));b.addEventListener("click",()=>{if(f){f=false;return}goAS(d)});b.addEventListener("contextmenu",e=>e.preventDefault())}
+lp(up,-1);lp(dn,1);
+["touchstart","wheel","mousedown","keydown"].forEach(ev=>addEventListener(ev,e=>{if(dir&&!(e.target.closest&&e.target.closest(".sc")))stopAS()},{passive:true}));
 render();
 </script></body></html>
