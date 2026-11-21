@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="hi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>12th English Blackboard</title>
+<style>
+:root{--bd:#1d2b25;--ch:#f2f0e6;--y:#ffe27a;--g:#8fe3a0;--r:#ff8f8f;--b:#8fd0ff;--fs:20px}
+*{box-sizing:border-box}
+body{margin:0;background:#5a3b22;font:var(--fs)/1.5 "Segoe Print","Bradley Hand","Comic Sans MS",cursive;color:var(--ch)}
+.board{max-width:900px;margin:12px auto;min-height:96vh;background:radial-gradient(ellipse at 30% 20%,#2b3d34,var(--bd));border:12px solid #8a5a2e;border-radius:8px;box-shadow:inset 0 0 60px #000a,0 6px 20px #0008;padding:14px}
+h1{margin:0 0 8px;text-align:center;color:var(--y);font-size:1.5em}
+nav{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
+button,select,input{font:inherit;color:var(--ch);background:#0003;border:2px dashed #f2f0e688;border-radius:8px;padding:4px 10px;cursor:pointer}
+button:hover,button.on{background:#f2f0e622;border-color:var(--y)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--b)}
+.bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
+.bar input{flex:1;min-width:140px;cursor:text}
+select option{background:#222}
+.q{border-bottom:1px dashed #f2f0e644;padding:8px 4px}
+.q p{margin:0 0 4px}.n{color:var(--y)}
+.o{padding:2px 8px;border-radius:6px;display:block;width:100%;text-align:left;border:0;background:none}
+.o.ok{color:var(--g);background:#8fe3a022}
+.o.no{color:var(--r);background:#ff8f8f22;text-decoration:line-through}
+.o,.ans{font-family:system-ui,'Noto Sans Devanagari',Arial,sans-serif;font-size:.9em}body.ch .o,body.ch .ans{font-family:inherit;font-size:1em}.ans{display:block;padding:2px 8px;color:var(--g)}input[type=checkbox]{width:1.1em;height:1.1em;padding:0;margin:0 6px 0 0;accent-color:#8fe3a0;vertical-align:middle;border:0;background:none}label.o{display:block;cursor:pointer}.ex{color:var(--b);font-size:.85em;margin:2px 0 4px;font-family:system-ui,"Noto Sans Devanagari",Arial,sans-serif}.sc{position:fixed;right:10px;bottom:14px;display:flex;flex-direction:column;gap:6px;z-index:5}.sc button{background:#1d2b25;font-size:1.2em}.st{float:right;border:0;background:none;font-size:1.2em;padding:0}
+.hid .o.ok{color:inherit;background:none}
+.stat{display:flex;justify-content:space-between;color:var(--b);margin-bottom:6px}
+.big{text-align:center;font-size:2em;color:var(--y)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:4px 20px}
+.hint{color:#f2f0e699;font-size:.7em;text-align:center}
+.tray{height:10px;background:#8a5a2e;border-radius:4px;margin-top:10px}
+@media(max-width:560px){:root{--fs:17px}.board{border-width:6px;margin:0}}
+</style></head><body>
+<div class="board"><h1>✎ 12th English – Sent-Up 2027</h1>
+<nav id="nav"></nav><div id="app"></div><div class="sc"><button id="up" title="ऊपर">↑</button><button id="dn" title="नीचे">↓</button></div><div class="tray"></div>
+<p class="hint">Quiz में: A/B/C/D या 1–4 दबाएँ, Enter = अगला</p></div>
+<script>
+const D=`"The Waste Land" is written by:~W.B. Yeats~T.S. Eliot~Walter de la Mare~Robert Frost~1
+Seibei was a twelve-year-old ___ boy.~Indian~Chinese~Japanese~Korean~2
+English is a link language in:~Russia~China~India~Japan~2
+Donne compares his journey to the:~Moon~Sun~Stars~Wind~1
+Who wrote "Why I Am Not a Christian"?~Bertrand Russell~Thomas Hardy~William Shakespeare~None of these~0
+The Great Vowel Shift took place during the ___ period.~Old English~Middle English~Modern English~Post-Modern~1
+"A Marriage Proposal" is a ___~One act play~Two act play~Three act play~None of these~0
+Macavity is called the:~Hidden Paw~Giant Paw~Mystery Paw~Black Paw~0
+"Gitanjali" was written by:~Rabindranath Tagore~Sarojini Naidu~Bankim Chandra~Sri Aurobindo~0
+"Bharat is my home and its people are my family" is said by:~Mahatma Gandhi~Dr. Zakir Hussain~Dr. Rajendra Prasad~Indira Gandhi~1
+John Keats was a ___ poet.~Romantic~Metaphysical~War~Modern~0
+"The Artist" is a short story written by:~H.E. Bates~Shiga Naoya~Pearl S. Buck~Anton Chekhov~1
+"King Lear" is a famous drama by:~William Shakespeare~Ben Jonson~Christopher Marlowe~John Dryden~0
+Bertrand Russell got the Nobel Prize in Literature in:~1945~1950~1960~1970~1
+A Sonnet is a poem of ___ lines.~12~14~16~10~1
+The Norman Conquest took place in the year:~AD 1066~AD 449~AD 1150~AD 1500~0
+"The Soldier" is a ___ poem.~Patriotic / Sonnet~Love~Sad~Nature~0
+"A Pinch of Snuff" is written by:~Manohar Malgonkar~Shiga Naoya~Pearl S. Buck~H.E. Bates~0
+The language of Old English appears to us today:~Foreign & difficult~Easy~Modern~Same~0
+"I celebrate myself, and sing myself" is taken from:~Song of Myself~An Epitaph~Snake~The Soldier~0
+"Indian Civilization and Culture" is written by:~Dr. Zakir Hussain~Mahatma Gandhi~H.E. Bates~Martin Luther King, Jr.~1
+"India Through a Traveller's Eyes" is an extract from:~My Several Worlds~Come, My Beloved~The Family~None of these~0
+Old English had ___ dialects.~2~3~4~5~2
+"Ode to Autumn" is composed by:~John Donne~John Keats~W.H. Auden~Walt Whitman~1
+English is used as a Global Language because it is:~Difficult~Widely spoken and understood globally~Very old~Spoken only in UK~1
+Macavity is called the:~Hidden Paw~Giant Paw~Mystery Paw~Black Paw~0
+Martin Luther King, Jr. belonged to:~Britain~France~the USA~Germany~2
+"Untouchable" and "Coolie" were written by:~Raja Rao~R.K. Narayan~Mulk Raj Anand~Anita Desai~2
+Nanukaka travelled in ___ class on a third-class ticket.~First~Second~Third~AC~1
+"An Epitaph" deals with a beautiful lady belonged to the:~North Country~West Country~East Country~South Country~1
+"Ideas That Have Helped Mankind" is written by:~Bertrand Russell~Shiga Naoya~Anton Chekhov~Germaine Greer~0
+Standard English pronunciation is known as:~Direct Dialect~American Accent~Indian Accent~Received Pronunciation (RP)~3
+"A Child is Born" is an extract from the book:~Sex and Destiny~The Female Eunuch~Change~None of these~0
+W.H. Auden won the Pulitzer Prize in:~1948~1950~1945~1952~0
+"Paradise Lost" was written by:~John Milton~William Shakespeare~Alexander Pope~John Keats~0
+"My Grandmother's House" is an autobiographical poem by:~Kamala Das~Toru Dutt~Sarojini Naidu~Anita Desai~0
+The word "Drama" comes from a ___ word.~Latin~Greek~French~German~1
+Nanukaka was the author's:~Brother~Paternal uncle~Father~Friend~1
+John Donne is a ___ poet.~Nature~Metaphysical~War~Romantic~1
+English used since AD 1500 till date is called:~Old English~Middle English~Modern English~Ancient English~2
+Keki N. Daruwalla was a poet of ___ origin.~Parsi~Hindu~Muslim~Christian~0
+"The Earth" is written by:~H.E. Bates~Shiga Naoya~Anton Chekhov~Manohar Malgonkar~0
+Geoffrey Chaucer is known as the father of:~English Drama~English Poetry~English Novel~English Prose~1
+MLK delivered "I Have a Dream" on:~28th August, 1963~15th August, 1947~26th January, 1950~10th October, 1960~0
+Walter de la Mare was born in the year:~1883~1873~1893~1903~1
+Middle English covers from AD 1150 to:~1400~1500~1600~1700~1
+Rupert Brooke was a ___ poet.~War~Romantic~Nature~Children's~0
+"Bharat is My Home" is said by:~Mahatma Gandhi~Dr. Zakir Hussain~Dr. Rajendra Prasad~Indira Gandhi~1
+"The Artist" is a short story written by:~H.E. Bates~Shiga Naoya~Pearl S. Buck~Anton Chekhov~1
+English is the official language of:~UNO (United Nations Organization)~Only England~Only India~Neither~0
+"Sweetest Love I Do Not Goe" is written for the poet's:~Sister~Mother~Wife / Beloved~Daughter~2
+Who wrote "Guide"?~R.K. Narayan~Raja Rao~Mulk Raj Anand~Rabindranath Tagore~0
+"Fire-Hymn" is composed by:~Keki N. Daruwalla~Kamala Das~D.H. Lawrence~T.S. Eliot~0
+"Mind is a restless bird, the more it gets the more it wants" is from:~A Pinch of Snuff~Bharat is My Home~Indian Civilization and Culture~The Artist~2
+William Shakespeare belongs to the ___ period.~Old English~Middle English~Elizabethan / Modern English~Post-Modern~2
+Autumn is a season of mellow:~Fruitfulness~Dryness~Coldness~Hotness~0
+"The Soldier" is a ___ poem.~Patriotic / Sonnet~Love~Sad~Nature~0
+Germaine Greer is an ___ writer.~Indian~Australian~American~British~1
+Old English period covers from AD ___ to AD 1066.~449~500~600~1150~0
+Pearl S. Buck was an ___ by birth.~Indian~American~African~English~1
+Who wrote "David Copperfield"?~Thomas Hardy~Jane Austen~George Eliot~Charles Dickens~3
+"Now the Leaves Are Falling Fast" talks about the frustration inherent in ___ life.~Animal~Human~Plant~Bird~1
+Who wrote "The Lotus"?~Manohar Malgaonkar~Toru Dutt~Sarojini Naidu~Girish Karnad~1
+English is a ___ language in India.~connect~link~adding~local~1
+"Song of Myself" is composed by:~John Keats~Walt Whitman~W.H. Auden~Rupert Brooke~1
+Modern English began from AD:~1150~1500~1600~1066~1
+"A Marriage Proposal" is a one-act play written by:~Anton Chekhov~Shiga Naoya~H.E. Bates~Manohar Malgonkar~0
+The snake came to the poet's water-trough on a ___ day.~Cold~Rainy~Hot~Windy~2
+"How Free is the Press" is written by:~Dorothy L. Sayers~Pearl S. Buck~Germaine Greer~H.E. Bates~0
+Which country has English as a native language?~India~China~USA / UK~Japan~2
+Lomov wanted to marry:~Natalia~Florence~Susan~Mary~0
+"Macbeth" and "Julius Caesar" are written by:~Goldsmith~Marlowe~Dryden~Shakespeare~3
+"Beowulf" is an ___ poem.~Old English~Middle English~Modern English~None of these~0
+Who said "There is nothing like honesty"?~Manohar Malgaonkar~Nanukaka~Dhobi~Sikka Auto Dealers~1
+T.S. Eliot got the Nobel Prize in Literature in:~1950~1948~1938~1960~1
+Benjy wanted to marry:~Mary~Florence~Natalia~Rekha~1
+Middle English had ___ main dialects.~3~4~5~6~2
+D.H. Lawrence belongs to:~Britain~America~France~India~0
+Dr. Zakir Hussain became President of India in:~1965~1967~1969~1971~1
+Kamala Das writes in English and:~Bengali~Tamil~Malayalam~Hindi~2
+"I, now thirty seven years old in perfect health." Poet?~John Keats~Walt Whitman~Rupert Brooke~W.H. Auden~1
+"The voice of my education said to me he must be killed." Which poem?~Fire-Hymn~Snake~The Soldier~Macavity: the mystery cat~1
+"And think this heart all evil shed away." Poet?~Walt Whitman~Walter De La Mare~Rupert Brooke~John Keats~2
+"Where white waterfalls could bless travellers in their last distress." Which poem?~To Autumn~Now the leaves are falling fast~The Soldier~Song of Myself~1
+"Sweetest love I do not Goe for weariness of thee." Poet?~John Donne~Rupert Brooke~W.H. Auden~Walt Whitman~0
+"Thou watchest the last oozings hour by hour." Which poem?~An Epitaph~To Autumn~Snake~Fire-Hymn~1
+"He is the bafflement of Scotland Yard." Poet?~W.H. Auden~John Donne~T.S. Eliot~Rupert Brooke~2
+"A body of England's breathing, English air..." Which poem?~Song of Myself~The Soldier~To Autumn~My Grandmother's House~1
+"Hoping to cease not till death." Poet?~W.H. Auden~Walt Whitman~John Donne~Walter De La Mare~1
+"There is a house now far away where once I received love." Which poem?~My Grandmother's House~An Epitaph~Fire-Hymn~The Soldier~0
+"I celebrate myself and sing myself..." Poet?~Rupert Brooke~Walt Whitman~John Keats~W.H. Auden~1
+"Starting through the leafless wood, Trolls run looking for their food." Which poem?~Macavity: the mystery cat~Now the leaves are falling fast~Snake~Song of Myself~1
+"Nature without check with original energy." Poet?~Walt Whitman~John Keats~Rupert Brooke~Walter De La Mare~0
+"My blood turned cold like the moon." Which poem?~The Soldier~My Grandmother's House~An Epitaph~Fire-Hymn~1
+"Seasons of mist and mellow fruitfulness..." Poet?~John Donne~John Keats~W.H. Auden~Walt Whitman~1
+"I who have lost my way and beg now at strangers' doors..." Which poem?~To Autumn~My Grandmother's House~The Soldier~Snake~1
+"The Prams go on rolling." Poet?~T.S. Eliot~W.H. Auden~John Keats~John Donne~1
+"Was it cowardice that I dared not kill him?" Which poem?~Snake~Fire-Hymn~The Soldier~Macavity: the mystery cat~0
+"He hath no desire, nor sense, nor halfe so short a way." Poet?~John Donne~John Keats~W.H. Auden~T.S. Eliot~0
+"If I should die, think only this of me." Which poem?~Song of Myself~The Soldier~To Autumn~Sweetest Love I do not Goe~1
+Synonym of 'Melodious':~Fine~Journey~Musical~Grief~2
+Synonym of 'Perfume':~Way~Scent~Plain~Hunt~1
+Synonym of 'Show':~Abrupt~Forbid~Silent~Exhibit~3
+Synonym of 'Change':~Alter~Review~Renew~View~0
+Synonym of 'Kind':~Soft~Pretty~Cruel~Humane~3
+The judge declared the person guilty of all the charges. Antonym of 'guilty':~easy~innocent~rival~simple~1
+Antonym of 'Modern':~Ancient~Recent~Contemporary~Update~0
+He is ___ of being here. (Antonym of 'happy')~First~Sad~Jolly~Excited~1
+This girl is very ___.~ugly~industrious~dull~sharp~1
+To do away with (synonym):~disappear~abolish~leave~None of these~1
+Cock and bull story (synonym):~keep secret~very clear~unbelievable story~None of these~2
+Down the drain (synonym):~completely wasted~to win easily~strict~interested~0
+For good (synonym):~for ever~to be a victim~easily gained~None of these~0
+Carry on (synonym):~acquire~reject~occur~manage~3
+He said, "It may rain tomorrow."~The next day it will rain said he.~The rain will be there tomorrow was said by him.~He said that it might rain the next day.~Raining tomorrow is what is said by him.~2
+Ram said to Shyam, "What are you reading?"~Ram asked Shyam what he was reading.~Ram told Shyam what he is reading.~Ram is asking Shyam about his reading book.~Ram said to Shyam as what he was reading.~0
+He told me, "Are you hungry?"~He was asking me if I am hungry.~He asked me if I was hungry.~He said to me if I was hungry.~He questioned me about my hunger.~1
+Ajay said to Richa, "Thank you for your advice."~Ajay thanked Richa for their advice.~Ajay thanked Richa for her advice.~Ajay had thanked Richa for her advice.~Ajay thanked Richa for advising him.~1
+In the library the number of books ___ five hundred.~is~are~am~has~0
+Each boy and each girl ___ a separate room.~has~have~is~are~0
+What ___ I to do now?~am~are~is~has~0
+There ___ a number of books in his hand.~is~are~am~have~1
+This book has ___ me two rupees.~costs~cost~will cost~may cost~1
+My friend and I ___ our homework every day.~do~does~did~has done~0
+Choose the correctly spelt word:~medicene~medecene~midecine~medicine~3
+Choose the correctly spelt word:~Baggege~Bagigge~Begage~Baggage~3
+Choose the correctly spelt word:~Confess~confes~conffes~Conffess~0
+Choose the correctly spelt word:~overwhelmed~overwelmed~overwelhmed~ourewhelmed~0
+Choose the correctly spelt word:~errudition~erudition~eruddition~erredution~1
+Choose the correctly spelt word:~harmoney~harmony~harmenoy~harmonye~1
+Choose the correctly spelt word:~families~famalies~famillies~famlies~0
+___ Ramayana is the holy book.~The~A~An~None of these~0
+She plays ___ badminton very well.~a~an~the~none of these~3
+Choose the correct sentence:~The clock has struck five.~The clock has struck five hours.~The clock strike five.~Struck five by the clock.~0
+Choose the correct sentence:~All the mankind should be happy.~Mankind happy should be.~Should be happy all mankind.~All mankind should be happy.~3`;
+const E=`The Waste Land T.S. Eliot ki mashhoor modernist kavita hai (1922).
+Seibei Shiga Naoya ki kahani "The Artist" ka 12 saal ka Japanese ladka hai.
+India mein English link language hai, alag-alag bhasha walon ko jodti hai.
+Donne apni yatra ko Sun ke chalne se compare karte hain.
+Bertrand Russell ne "Why I Am Not a Christian" likha, dharm par tark-purn nibandh.
+Great Vowel Shift Middle English period mein hua, jab swaron ka ucharan badla.
+"A Marriage Proposal" Anton Chekhov ka one-act hasya natak hai.
+Eliot ki kavita mein Macavity ko "Hidden Paw" kaha gaya, mystery cat jo kabhi pakda nahi jata.
+Gitanjali Rabindranath Tagore ki rachna hai, jis par 1913 ka Nobel Prize mila.
+"Bharat is my home..." Dr. Zakir Hussain ka kathan hai, jo baad mein President bane.
+John Keats Romantic poet the; "Ode to Autumn" unki prasiddh kavita hai.
+"The Artist" Japanese lekhak Shiga Naoya ki short story hai.
+King Lear William Shakespeare ki prasiddh tragedy hai.
+Bertrand Russell ko 1950 mein Literature ka Nobel Prize mila.
+Sonnet 14 lines ki kavita hoti hai, jaise "The Soldier".
+Norman Conquest AD 1066 mein hua, jab William ne England jeeta.
+"The Soldier" Rupert Brooke ki patriotic sonnet hai, desh-prem dikhati hai.
+"A Pinch of Snuff" Manohar Malgonkar ki kahani hai.
+Old English aaj hamein videshi aur mushkil lagti hai.
+"I celebrate myself, and sing myself" Walt Whitman ki Song of Myself ki pehli line hai.
+"Indian Civilization and Culture" Mahatma Gandhi ka nibandh hai.
+"India Through a Traveller's Eyes" Pearl S. Buck ki aatmakatha "My Several Worlds" se hai.
+Old English mein 4 dialects the: Northumbrian, Mercian, West Saxon, Kentish.
+"To Autumn" John Keats ne likhi, patjhad ki sundarta par.
+English duniya bhar mein bahut bolee-samjhi jati hai, isliye Global Language hai.
+Eliot ki kavita mein Macavity ko "Hidden Paw" kaha gaya, mystery cat jo kabhi pakda nahi jata.
+Martin Luther King Jr. America (USA) ke civil rights neta the.
+Mulk Raj Anand ne "Untouchable" aur "Coolie" likhe, jo samajik anyay par hain.
+Nanukaka ne third-class ticket par second class mein safar kiya.
+"An Epitaph" mein poet ek sundar ladki ko yaad karta hai jo West Country ki thi.
+"Ideas That Have Helped Mankind" Bertrand Russell ka nibandh hai.
+Standard English ke ucharan ko Received Pronunciation (RP) kehte hain.
+"A Child Is Born" Germaine Greer ki kitab "Sex and Destiny" se liya gaya hai.
+W.H. Auden ko 1948 mein Pulitzer Prize mila.
+Paradise Lost John Milton ka mahakavya hai.
+"My Grandmother's House" Kamala Das ki aatmakatha jaisi kavita hai.
+"Drama" shabd Greek se aaya hai, matlab "action" ya kaam karna.
+Nanukaka lekhak ke paternal uncle yaani chacha the.
+John Donne Metaphysical poets mein sabse mukhya kavi hain.
+AD 1500 se aaj tak ki English ko Modern English kehte hain.
+Keki N. Daruwalla Parsi mool ke kavi the.
+"The Earth" H.E. Bates ki kahani hai, baap-bete ke rishte par.
+Chaucer ko "Father of English Poetry" kaha jata hai (Canterbury Tales).
+MLK ne "I Have a Dream" speech 28 August 1963 ko di.
+Walter de la Mare ka janm 1873 mein hua.
+Middle English AD 1150 se 1500 tak chali.
+Rupert Brooke First World War ke war poet the.
+"Bharat is My Home" Dr. Zakir Hussain ka kathan hai.
+"The Artist" Japanese lekhak Shiga Naoya ki short story hai.
+English UNO ki official languages mein se ek hai.
+Donne ne yeh kavita apni wife/beloved ke liye likhi, yatra par jaate waqt.
+"Guide" R.K. Narayan ka prasiddh upanyas hai.
+"Fire-Hymn" Keki N. Daruwalla ki kavita hai.
+"Mind is a restless bird..." Gandhi ke nibandh Indian Civilization and Culture se hai.
+Shakespeare Elizabethan period (Modern English) ke lekhak the.
+"To Autumn" mein patjhad "mellow fruitfulness" ka mausam hai.
+"The Soldier" Rupert Brooke ki patriotic sonnet hai, desh-prem dikhati hai.
+Germaine Greer Australian lekhika hain.
+Old English period AD 449 se 1066 tak thi.
+Pearl S. Buck American thi, par bachpan China mein bita.
+David Copperfield Charles Dickens ka upanyas hai.
+Is kavita mein insaan (human) jeevan ki niraasha aur nashvarta dikhai gayi hai.
+"The Lotus" Toru Dutt ki kavita hai.
+India mein English ek link language hai.
+"Song of Myself" Walt Whitman ki rachna hai.
+Modern English AD 1500 se shuru maani jati hai.
+Chekhov ne one-act play "A Marriage Proposal" likha.
+Lawrence ke "Snake" mein saanp garmi ke din (hot day) paani peene aaya.
+"How Free is the Press" Dorothy L. Sayers ka nibandh hai.
+English USA/UK mein native language hai; India mein sirf second language.
+Lomov Natalia se shaadi karna chahta tha (A Marriage Proposal).
+Macbeth aur Julius Caesar Shakespeare ke natak hain.
+Beowulf Old English ki prasiddh epic kavita hai.
+Yeh baat Nanukaka ne kahi, jo imaandari ki seekh deti hai.
+T.S. Eliot ko 1948 mein Nobel Prize mila.
+"The Earth" mein Benjy ne Florence se shaadi ki.
+Middle English mein 5 main dialects the: Northern, East Midland, West Midland, Southern, Kentish.
+D.H. Lawrence Britain ke lekhak the.
+Dr. Zakir Hussain 1967 mein India ke President bane.
+Kamala Das English aur Malayalam dono mein likhti thi.
+"Now thirty seven years old in perfect health" Walt Whitman (Song of Myself) ki line hai.
+"Voice of my education said he must be killed" Lawrence ke Snake ki line hai.
+"And think this heart all evil shed away" Rupert Brooke ke The Soldier mein hai.
+Yeh line Auden ki "Now the Leaves Are Falling Fast" ki hai.
+"Sweetest love I do not goe..." John Donne ki kavita hai.
+"Thou watchest the last oozings hour by hour" Keats ke To Autumn mein hai.
+"Bafflement of Scotland Yard" T.S. Eliot ki Macavity kavita ki line hai.
+"A body of England's breathing" Rupert Brooke ke The Soldier mein hai.
+"Hoping to cease not till death" Whitman ki Song of Myself ki line hai.
+"House far away where once I received love" Kamala Das ki My Grandmother's House hai.
+"I celebrate myself and sing myself" Walt Whitman ki line hai.
+"Starting through the leafless wood, Trolls..." Auden ki Now the Leaves ki line hai.
+"Nature without check with original energy" Walt Whitman ki line hai.
+"My blood turned cold like the moon" Kamala Das ki My Grandmother's House hai.
+"Seasons of mist and mellow fruitfulness" Keats ke To Autumn ki shuruaat hai.
+"I who have lost my way..." Kamala Das ki My Grandmother's House hai.
+"The Prams go on rolling" W.H. Auden ki kavita ki line hai.
+"Was it cowardice that I dared not kill him?" Lawrence ke Snake mein hai.
+"He hath no desire..." John Donne ki Sweetest Love se hai.
+"If I should die, think only this of me" Brooke ke The Soldier ki pehli line hai.
+Melodious ka matlab Musical, yaani madhur.
+Perfume ka synonym Scent hai, yaani sugandh.
+Show ka synonym Exhibit hai.
+Change ka synonym Alter hai.
+Kind ka synonym Humane hai, yaani dayalu.
+Guilty (doshi) ka antonym Innocent (nirdosh) hai.
+Modern ka antonym Ancient (purana) hai.
+Happy ka antonym Sad (dukhi) hai.
+Industrious matlab mehnati; ladki ke liye yahi sahi shabd hai.
+"To do away with" matlab khatam karna, yaani Abolish.
+"Cock and bull story" matlab ajeeb, unbelievable kahani.
+"Down the drain" matlab bilkul barbad ho jana.
+"For good" matlab hamesha ke liye, for ever.
+"Carry on" matlab jaari rakhna ya sambhalna, yaani manage.
+Indirect mein tense piche jata hai: may → might, tomorrow → the next day.
+Wh-question ke indirect mein asked + what + he was reading (normal order).
+Yes/no question mein "if" lagta hai: asked me if I was hungry.
+"Thank you" ka indirect: thanked + for; your → her.
+"The number of" ke saath singular verb "is" aata hai.
+"Each ... and each" ke saath singular verb "has" aata hai.
+"I" ke saath "am" aata hai.
+"A number of" plural hai, isliye "are".
+Price batane ke liye "cost" use hota hai (past aur present same).
+"My friend and I" plural subject hai, isliye "do".
+Sahi spelling: medicine.
+Sahi spelling: baggage.
+Sahi spelling: confess.
+Sahi spelling: overwhelmed.
+Sahi spelling: erudition.
+Sahi spelling: harmony.
+Sahi spelling: families.
+Ramayana ek khas granth hai, isliye "the" lagta hai.
+Games ke naam (badminton) se pehle article nahi lagta.
+Sahi sentence: The clock has struck five.
+"All mankind should be happy" sahi hai; mankind ke saath "the" nahi lagta.`.split("\n");
+const Q=D.split("\n").map((l,i)=>{const p=l.split("~");return{id:i+1,q:p[0],o:p.slice(1,5),a:+p[5]}});
+const SEC=[["सब",1,135],["साहित्य",1,100],["Syn/Ant/Idiom",101,114],["Narration",115,118],["Concord",119,124],["Spelling",125,131],["Article/Order",132,135]];
+const M=[["Poet → Poem",[["Walt Whitman","Song of Myself"],["D. H. Lawrence","Snake"],["Rupert Brooke","The Soldier"],["W. H. Auden","Now the leaves are falling fast"],["John Donne","Sweetest Love I Do Not Goe"]]],
+["Writer → Work",[["Martin Luther King, Jr.","I Have a Dream"],["Bertrand Russell","Ideas That Have Helped Mankind"],["Shiga Naoya","The Artist"],["Germaine Greer","A Child Is Born"],["Dorothy L. Sayers","How Free Is The Press"]]]];
+const L="ABCD",app=document.getElementById("app");
+let st={tab:"study",sec:0,find:"",show:true,mode:"mcq",pr:true,star:new Set(),wrong:new Set()};
+try{st.star=new Set(JSON.parse(localStorage.getItem("eb_star")||"[]"));st.wrong=new Set(JSON.parse(localStorage.getItem("eb_wrong")||"[]"))}catch(e){}
+const save=()=>{try{localStorage.setItem("eb_star",JSON.stringify([...st.star]));localStorage.setItem("eb_wrong",JSON.stringify([...st.wrong]))}catch(e){}};
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const TABS=[["study","📖 पढ़ाई"],["quiz","📝 Quiz"],["match","🔗 Matching"],["rev","⭐ दोहराना"]];
+function nav(){document.getElementById("nav").innerHTML=TABS.map(t=>`<button class="${st.tab==t[0]?"on":""}" data-t="${t[0]}">${t[1]}</button>`).join("")+`<button data-fs="1">⛶ Full screen</button><button data-ft="1">Aa फ़ॉन्ट</button><button data-f="1">A+</button><button data-f="-1">A−</button>`}
+document.getElementById("nav").onclick=e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.t){st.tab=b.dataset.t;quiz=null;render()}if(b.dataset.fs){try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(x){}}if(b.dataset.ft)document.body.classList.toggle("ch");if(b.dataset.f){const r=document.documentElement,c=parseInt(getComputedStyle(r).getPropertyValue("--fs"));r.style.setProperty("--fs",Math.min(30,Math.max(14,c+2*b.dataset.f))+"px")}};
+function qHTML(q,reveal=true,pr=false){return `<div class="q ${reveal?"":"hid"}"><button class="st" data-s="${q.id}" title="Star">${st.star.has(q.id)?"★":"☆"}</button><p><span class="n">${q.id}.</span> ${esc(q.q)}</p>${pr?q.o.map((o,i)=>`<label class="o"><input type="checkbox" data-p="${q.id}:${i}"> (${L[i]}) ${esc(o)}</label>`).join(""):st.mode=="ans"?(reveal?`<span class="ans">✔ (${L[q.a]}) ${esc(q.o[q.a])}</span>`:""):q.o.map((o,i)=>`<span class="o ${reveal&&i==q.a?"ok":""}">(${L[i]}) ${esc(o)}</span>`).join("")}</div>`}
+function study(){const [,a,b]=SEC[st.sec],f=st.find.toLowerCase();
+const list=Q.filter(q=>q.id>=a&&q.id<=b&&(!f||(q.q+q.o.join(" ")).toLowerCase().includes(f)));
+app.innerHTML=`<div class="bar"><select id="sec">${SEC.map((s,i)=>`<option value="${i}" ${i==st.sec?"selected":""}>${s[0]} (${s[1]}–${s[2]})</option>`).join("")}</select><input id="fd" placeholder="खोजें…" value="${esc(st.find)}"><button id="tg">${st.show?"उत्तर छुपाएँ":"उत्तर दिखाएँ"}</button><label style="white-space:nowrap"><input type="checkbox" id="prc" ${st.pr?"checked":""}> चेकबॉक्स से उत्तर चुनो</label><button id="md">${st.mode=="mcq"?"👁 सिर्फ उत्तर":"👁 पूरा MCQ"}</button></div><div class="stat"><span>${list.length} प्रश्न</span><span>★ ${st.star.size}</span></div><div id="ls">${list.map(q=>qHTML(q,st.show&&!st.pr,st.pr)).join("")||"कुछ नहीं मिला"}</div>`;
+sec.onchange=e=>{st.sec=+e.target.value;study()};tg.onclick=()=>{st.show=!st.show;study()};prc.onchange=()=>{st.pr=prc.checked;study()};md.onclick=()=>{st.mode=st.mode=="mcq"?"ans":"mcq";study()};
+fd.oninput=e=>{st.find=e.target.value;const p=e.target.selectionStart;study();fd.focus();fd.setSelectionRange(p,p)}}
+app.addEventListener("click",e=>{const b=e.target.closest("[data-p]");if(b){const[id,i]=b.dataset.p.split(":").map(Number),q=Q[id-1],box=b.closest(".q");if(box.dataset.done){e.preventDefault();return}box.dataset.done=1;const bs=box.querySelectorAll(".o");bs[q.a].classList.add("ok");bs[q.a].querySelector("input").checked=true;if(i!=q.a){bs[i].classList.add("no");st.wrong.add(id)}else st.wrong.delete(id);save();box.insertAdjacentHTML("beforeend",`<p>${i==q.a?"✔ सही!":"✘ गलत — सही: ("+L[q.a]+") "+esc(q.o[q.a])}</p><p class="ex">💡 ${E[id-1]}</p>`)}});
+app.addEventListener("click",e=>{const s=e.target.closest("[data-s]");if(s){const id=+s.dataset.s;st.star.has(id)?st.star.delete(id):st.star.add(id);save();s.textContent=st.star.has(id)?"★":"☆"}});
+function match(){app.innerHTML=M.map(([t,p])=>`<h3 style="color:var(--y)">${t}</h3><div class="pair">${p.map(x=>`<span>${x[0]}</span><span class="n">➜ ${x[1]}</span>`).join("")}</div>`).join("")}
+let quiz=null,tm;
+function setup(){app.innerHTML=`<div class="bar"><select id="qs">${SEC.slice(1).concat([["⭐ Star वाले"],["❌ गलत वाले"]]).map((s,i)=>`<option value="${i+1}">${s[0]}</option>`).join("")}<option value="0">सब 135</option></select><select id="qn"><option>10</option><option>20</option><option>50</option><option value="999">सारे</option></select><button id="go">शुरू करें</button></div><p class="hint">Star/गलत वाले सेट के लिए पहले प्रश्न star करें या quiz खेलें।</p>`;
+go.onclick=()=>{const i=+qs.value;let pool;if(i==0)pool=Q;else if(i==7)pool=Q.filter(q=>st.star.has(q.id));else if(i==8)pool=Q.filter(q=>st.wrong.has(q.id));else{const[,a,b]=SEC[i];pool=Q.filter(q=>q.id>=a&&q.id<=b)}
+if(!pool.length){alert("इस सेट में कोई प्रश्न नहीं है");return}
+quiz={l:shuf(pool).slice(0,+qn.value),i:0,sc:0,t:0,w:[],done:false};clearInterval(tm);tm=setInterval(()=>{if(quiz&&!quiz.done){quiz.t++;const e=document.getElementById("tm");if(e)e.textContent=fmt(quiz.t)}},1000);ask()}}
+const fmt=s=>String(s/60|0).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+function ask(){const q=quiz.l[quiz.i];quiz.ans=false;
+app.innerHTML=`<div class="stat"><span>प्रश्न ${quiz.i+1}/${quiz.l.length}</span><span>✔ ${quiz.sc}</span><span id="tm">${fmt(quiz.t)}</span></div><div class="q"><p><span class="n">Q${q.id}.</span> ${esc(q.q)}</p>${q.o.map((o,i)=>`<button class="o" data-c="${i}">(${L[i]}) ${esc(o)}</button>`).join("")}</div><div id="fb"></div>`}
+function pick(c){if(quiz.ans)return;quiz.ans=true;const q=quiz.l[quiz.i],bs=app.querySelectorAll(".o");
+bs[q.a].classList.add("ok");if(c==q.a){quiz.sc++;st.wrong.delete(q.id)}else{bs[c].classList.add("no");quiz.w.push(q);st.wrong.add(q.id)}save();
+fb.innerHTML=`<p>${c==q.a?"✔ सही!":"✘ सही उत्तर: ("+L[q.a]+") "+esc(q.o[q.a])}</p><p class="ex">💡 ${E[q.id-1]}</p><button id="nx">${quiz.i+1<quiz.l.length?"अगला":"नतीजा देखें"}</button>`;nx.focus();nx.onclick=next}
+function next(){if(quiz.i+1<quiz.l.length){quiz.i++;ask()}else{quiz.done=true;const p=Math.round(quiz.sc*100/quiz.l.length);
+app.innerHTML=`<div class="big">${quiz.sc} / ${quiz.l.length} (${p}%)</div><p style="text-align:center">समय: ${fmt(quiz.t)} — ${p>=80?"शानदार! 🎉":p>=50?"ठीक है, और दोहराएँ":"और अभ्यास करें"}</p>${quiz.w.length?`<h3 style="color:var(--r)">गलत प्रश्न</h3>${quiz.w.map(q=>qHTML(q)).join("")}`:""}<div class="bar" style="justify-content:center"><button id="ag">फिर खेलें</button></div>`;ag.onclick=()=>{quiz=null;setup()}}}
+app.addEventListener("click",e=>{const b=e.target.closest("[data-c]");if(b&&quiz)pick(+b.dataset.c)});
+document.addEventListener("keydown",e=>{if(st.tab!="quiz"||!quiz||quiz.done||e.target.matches("input,select"))return;const k=e.key.toUpperCase();let c=L.indexOf(k);if(c<0&&"1234".includes(k))c=+k-1;if(c>=0&&!quiz.ans)pick(c);else if(e.key=="Enter"&&quiz.ans){const n=document.getElementById("nx");n&&n.click()}});
+function rev(){const a=Q.filter(q=>st.star.has(q.id)),w=Q.filter(q=>st.wrong.has(q.id));
+app.innerHTML=`<h3 style="color:var(--y)">⭐ Star वाले (${a.length})</h3>${a.map(q=>qHTML(q)).join("")||"<p class='hint'>कोई नहीं — पढ़ाई में ☆ दबाएँ</p>"}<h3 style="color:var(--r)">❌ Quiz में गलत (${w.length})</h3>${w.map(q=>qHTML(q)).join("")||"<p class='hint'>कोई नहीं</p>"}`}
+function render(){nav();({study,quiz:()=>quiz&&!quiz.done?ask():quiz?next():setup(),match,rev})[st.tab]()}
+up.onclick=()=>scrollTo({top:0,behavior:"smooth"});dn.onclick=()=>scrollTo({top:document.documentElement.scrollHeight,behavior:"smooth"});
+render();
+</script></body></html>
