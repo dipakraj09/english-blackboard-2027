@@ -21,7 +21,7 @@ select option{background:#222}
 .o{padding:2px 8px;border-radius:6px;display:block;width:100%;text-align:left;border:0;background:none}
 .o.ok{color:var(--g);background:#8fe3a022}
 .o.no{color:var(--r);background:#ff8f8f22;text-decoration:line-through}
-.ans{display:block;padding:2px 8px;color:var(--g)}input[type=checkbox]{width:1.1em;height:1.1em;padding:0;margin:0 6px 0 0;accent-color:#8fe3a0;vertical-align:middle;border:0;background:none}label.o{display:block;cursor:pointer}.ex{color:var(--b);margin:2px 0 4px}.sc{position:fixed;right:10px;bottom:14px;display:flex;flex-direction:column;gap:6px;z-index:5}.sc button{background:#1d2b25;font-size:1.2em}.st{float:right;border:0;background:none;font-size:1.2em;padding:0}
+.ans{display:block;padding:2px 8px;color:var(--g)}input[type=checkbox]{width:1.1em;height:1.1em;padding:0;margin:0 6px 0 0;accent-color:#8fe3a0;vertical-align:middle;border:0;background:none}label.o{display:block;cursor:pointer}.ex{color:var(--b);margin:2px 0 4px}.sc{position:fixed;right:10px;bottom:14px;display:flex;flex-direction:column;gap:6px;z-index:5}.sc button{background:#1d2b25;font-size:1.2em;touch-action:none;user-select:none}.st{float:right;border:0;background:none;font-size:1.2em;padding:0}
 .hid .o.ok{color:inherit;background:none}
 .stat{display:flex;justify-content:space-between;color:var(--b);margin-bottom:6px}
 .big{text-align:center;font-size:2em;color:var(--y)}
@@ -309,7 +309,7 @@ const SEC=[["सब",1,135],["साहित्य",1,100],["Syn/Ant/Idiom",101
 const M=[["Poet → Poem",[["Walt Whitman","Song of Myself"],["D. H. Lawrence","Snake"],["Rupert Brooke","The Soldier"],["W. H. Auden","Now the leaves are falling fast"],["John Donne","Sweetest Love I Do Not Goe"]]],
 ["Writer → Work",[["Martin Luther King, Jr.","I Have a Dream"],["Bertrand Russell","Ideas That Have Helped Mankind"],["Shiga Naoya","The Artist"],["Germaine Greer","A Child Is Born"],["Dorothy L. Sayers","How Free Is The Press"]]]];
 const L="ABCD",app=document.getElementById("app");
-let st={tab:"study",sec:0,find:"",show:true,mode:"mcq",pr:true,star:new Set(),wrong:new Set()};
+let st={tab:"study",sec:0,find:"",show:true,mode:"mcq",pr:false,star:new Set(),wrong:new Set()};
 try{st.star=new Set(JSON.parse(localStorage.getItem("eb_star")||"[]"));st.wrong=new Set(JSON.parse(localStorage.getItem("eb_wrong")||"[]"))}catch(e){}
 const save=()=>{try{localStorage.setItem("eb_star",JSON.stringify([...st.star]));localStorage.setItem("eb_wrong",JSON.stringify([...st.wrong]))}catch(e){}};
 const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
@@ -346,8 +346,10 @@ app.innerHTML=`<h3 style="color:var(--y)">⭐ Star वाले (${a.length})</h
 function render(){nav();({study,quiz:()=>quiz&&!quiz.done?ask():quiz?next():setup(),match,rev})[st.tab]()}
 let dir=0,raf;
 function stopAS(){dir=0;cancelAnimationFrame(raf);up.classList.remove("on");dn.classList.remove("on")}
-function goAS(d){if(dir==d){stopAS();return}stopAS();dir=d;(d<0?up:dn).classList.add("on");const step=()=>{if(!dir)return;const y=scrollY;scrollBy(0,dir*14);if(scrollY==y){stopAS();return}raf=requestAnimationFrame(step)};raf=requestAnimationFrame(step)}
-up.onclick=()=>goAS(-1);dn.onclick=()=>goAS(1);
-["touchstart","wheel","mousedown","keydown"].forEach(ev=>addEventListener(ev,e=>{if(dir&&!(e.target.closest&&e.target.closest(".sc")))stopAS()},{passive:true}));
+function goAS(d){stopAS();dir=d;(d<0?up:dn).classList.add("on");const step=()=>{if(!dir)return;const y=scrollY;scrollBy(0,dir*32);if(scrollY==y){stopAS();return}raf=requestAnimationFrame(step)};raf=requestAnimationFrame(step)}
+function bindScrollHold(btn,d){btn.addEventListener("pointerdown",e=>{e.preventDefault();btn.setPointerCapture(e.pointerId);goAS(d)});["pointerup","pointercancel","lostpointercapture"].forEach(ev=>btn.addEventListener(ev,stopAS));btn.onclick=e=>{if(e.detail===0)scrollBy({top:d*500,behavior:"smooth"})}}
+bindScrollHold(up,-1);bindScrollHold(dn,1);
+document.addEventListener("pointerdown",e=>{if(!e.target.closest(".sc"))stopAS()},true);
+["wheel","keydown"].forEach(ev=>addEventListener(ev,e=>{if(!(e.target.closest&&e.target.closest(".sc")))stopAS()},{passive:true}));
 render();
 </script></body></html>
